@@ -216,9 +216,13 @@ class MenuHelper extends Helper implements \ArrayAccess
         }
 
         $depth = $item->getLevel();
+        $maxDepth = $item->getMaxDepth();
             
         $class = array();
         
+        if ($maxDepth > 1) {
+            $class[] = "deeper";
+        }
         $class[] = "level_{$depth}";
 
         // retrieve the attributes and put the final class string back on it

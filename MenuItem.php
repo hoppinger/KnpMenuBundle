@@ -629,6 +629,27 @@ class MenuItem implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Returns the maximum posible depth beyond this menu item
+     *
+     * @return integer
+     */
+    public function getMaxDepth()
+    {
+        if (!$this->getShowChildren()) {
+            return 0;
+        }
+        
+        $i = 0;
+        foreach ($this->children as $child) {
+            $x = $child->getMaxDepth() +1;
+            
+            $i = ($x > $i ? $x : $i);
+        }
+        
+        return $i;
+    }
+
+    /**
      * Returns the root MenuItem of this menu tree
      *
      * @return MenuItem
