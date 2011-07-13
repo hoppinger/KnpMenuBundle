@@ -202,4 +202,31 @@ class MenuHelper extends Helper implements \ArrayAccess
 
         return $attributes;
     }
+
+    /**
+     *
+     * @param MenuItem $menuItem
+     * @return array
+     */
+    public function getMenuAttributes(MenuItem $item)
+    {
+        // if we don't have access or this item is marked to not be shown
+        if (!$item->shouldBeRendered()) {
+            return;
+        }
+
+        $depth = $item->getLevel();
+            
+        $class = array();
+        
+        $class[] = "level_{$depth}";
+
+        // retrieve the attributes and put the final class string back on it
+        $attributes = $item->getAttributes();
+        if (!empty($class)) {
+            $attributes['class'] = implode(' ', $class);
+        }
+
+        return $attributes;
+    }
 }
